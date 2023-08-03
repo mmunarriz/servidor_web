@@ -13,15 +13,15 @@ app.get("/products", async (req, res) => {
     const data = await fs.readFile("products.json", "utf8");
     const products = JSON.parse(data);
 
-    // Lee el valor del param "limit" (si existe)
+    // Lee el valor de la query "limit"
     const limit = req.query.limit;
 
-    // Si se recibió el param "limit", devuelve el número de productos solicitados
+    // Si se recibió la query"limit", devuelve el número de productos solicitados
     if (limit) {
       const limitedProducts = products.slice(0, parseInt(limit));
       res.json(limitedProducts);
     } else {
-      // Si no se recibió el param "limit", devuelve todos los productos
+      // Si no se recibió la query "limit", devuelve todos los productos
       res.json(products);
     }
   } catch (error) {
@@ -35,6 +35,7 @@ app.get("/products/:pid", async (req, res) => {
     const data = await fs.readFile("products.json", "utf8");
     const products = JSON.parse(data);
 
+    // Lee el valor del param "pid"
     const pid = parseInt(req.params.pid);
 
     // Busca el producto en la lista por su "id"
